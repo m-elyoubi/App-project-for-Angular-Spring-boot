@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Users} from "../../model/Users";
 import {NavBarComponent} from "../../components/nav-bar/nav-bar.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -11,7 +12,7 @@ import {NavBarComponent} from "../../components/nav-bar/nav-bar.component";
 })
 export class UserComponent implements OnInit {
   users?:Users[];
-  constructor(private navBarComponent:NavBarComponent,private userService:UserService) { }
+  constructor(private navBarComponent:NavBarComponent,private userService:UserService,private router:Router) { }
 
   ngOnInit(): void {
    this.users= this.navBarComponent.users;
@@ -52,10 +53,6 @@ export class UserComponent implements OnInit {
 
   }
 
-  onWrite(u: Users) {
-
-  }
-
   onSearchByNumber(datavalue: any) {
     this.userService.searchByPhone(datavalue.keyword).subscribe(data=>{
       this.users=data;
@@ -66,5 +63,13 @@ export class UserComponent implements OnInit {
     this.userService.searchByEmail(datavalue.keyword).subscribe(data=>{
       this.users=data;
     })
+  }
+
+  onNewUsers() {
+    this.router.navigateByUrl("/dash/newUser");
+  }
+
+  onEdit(u: Users) {
+    this.router.navigateByUrl("/dash/editUser/"+u.id);
   }
 }

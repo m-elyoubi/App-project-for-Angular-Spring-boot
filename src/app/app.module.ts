@@ -13,6 +13,9 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AccountComponent } from './components/account/account.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { UserComponent } from './components/user/user.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import {NewUserService} from "./services/new-user.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { UserComponent } from './components/user/user.component';
     NavBarComponent,
     AccountComponent,
     VehicleComponent,
-    UserComponent
+    UserComponent,
+    NewUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import { UserComponent } from './components/user/user.component';
     HttpClientModule,
     RouterModule
   ],
-  providers: [UserComponent],
+  providers: [UserComponent,NewUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

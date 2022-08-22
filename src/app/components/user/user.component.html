@@ -1,8 +1,12 @@
 
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <ul class="navbar navbar-nav">
     <li>
       <button class="btn btn-outline-info ml-2" (click)="ongetAllUsers()">All</button>
+    </li>
+    <li>
+      <button class="btn btn-outline-info ml-2" (click)="onNewUsers()">New user</button>
     </li>
   </ul>
   <ul class="navbar navbar-nav ml-auto">
@@ -45,7 +49,7 @@
         <button class="btn btn-outline-info m-lg-2" (click)="onAdd(u)" >
           <span class="fa fa-plus"></span>
         </button>
-        <button class="btn btn-warning " (click)="onWrite(u)" >
+        <button class="btn btn-warning " (click)="onEdit(u)" >
           <span class="fa fa-edit"></span>
         </button>
 

@@ -10,10 +10,15 @@ import {NavBarComponent} from "./components/nav-bar/nav-bar.component";
 import {UserComponent} from "./components/user/user.component";
 import {VehicleComponent} from "./components/vehicle/vehicle.component";
 import {AccountComponent} from "./components/account/account.component";
+import {NewUserComponent} from "./components/new-user/new-user.component";
+import {EditUserComponent} from "./components/edit-user/edit-user.component";
 
 const routes: Routes = [
   {path : "dash" , component : NavBarComponent,canActivate :[AuthenticationGuard], children:[
-      {path : "users" , component : UserComponent},
+      {path : "editUser/:id" , component : EditUserComponent},
+    {path : "users" , component : UserComponent},
+      {path : "newUser" , component : NewUserComponent},
+
       {path : "vehicles" , component : VehicleComponent},
       {path : "accounts" , component : AccountComponent},
       {path : "home" , component : HomeComponent},
