@@ -1,27 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UserService} from "../../services/user.service";
-import {Users} from "../../model/Users";
+import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
+@Injectable()
 export class NavBarComponent implements OnInit {
+ @Output() toggleSideBarEventEmitter :EventEmitter<any>=new EventEmitter();
+  constructor() {
 
-  users?:Users[];
-  constructor(private userService:UserService) { }
+  }
 
   ngOnInit(): void {
   }
-  getAllUsers()
-  {
-    this.userService.getUsers().subscribe(data=>{
-      console.log(data);
-      this.users=data;
-
-      }
-    )
+  toggleSideBar(){
+ this.toggleSideBarEventEmitter.emit();
   }
 }
 

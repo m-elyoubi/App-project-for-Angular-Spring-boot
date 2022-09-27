@@ -1,1 +1,25 @@
-<p>Welcome at SSYSITEL Company</p>
+<app-nav-bar (toggleSideBarEventEmitter)="eventAction($event)"></app-nav-bar>
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOen">
+    <app-side-bar></app-side-bar>
+  </mat-drawer>
+  <mat-drawer-container>
+    <div>
+      Line charts
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <div>Line chart</div>
+      <div>Line chart</div>
+      <div>Line chart</div>
+      <div>Line chart</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <div>Table</div>
+      <div>Pie Chart</div>
+    </div>
+  </mat-drawer-container>
+
+
+</mat-drawer-container>

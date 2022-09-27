@@ -10,7 +10,7 @@
        <label>Id account</label>
        <select  class="form-select" aria-label="Default select example" formControlName="accounts" (click)="getAllIdAccount()">
          <option  [ngValue]="null" disabled >Open this select menu</option>
-         <option *ngFor="let accounts of allIdAccount" [ngValue]="accounts"  >{{accounts.id}}</option>
+         <option *ngFor="let accounts of allIdAccount" [ngValue]="accounts">{{accounts.id}}</option>
        </select>
      </div>
      <div class="form-group row">

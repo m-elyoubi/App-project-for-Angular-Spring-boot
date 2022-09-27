@@ -9,6 +9,7 @@ export class Devices{
   typeOfEquipment !: string;
   position !: string;
   speed !: number;
+  active!:boolean;
   accounts !:Accounts;
   users !:Users;
 }

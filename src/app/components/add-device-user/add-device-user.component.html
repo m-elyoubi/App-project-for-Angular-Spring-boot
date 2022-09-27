@@ -1,0 +1,178 @@
+<app-nav-bar ></app-nav-bar>
+<br>
+<div class="container">
+  <div class="card" >
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <h4>Vehicles management : {{nameUser}}</h4>
+      <ul class="nav navbar-nav ml-auto">
+        <li>
+          <button class="btn btn-outline-primary ml-2" data-bs-toggle="modal" data-bs-target="#exampleModalNew">New Device</button>
+        </li>
+      </ul>
+
+
+    </nav>
+
+    <div class="border">
+      <input class=".col-md-4 .ms-auto" name="module"  [(ngModel)]="module" (ngModelChange)="onSearchByModule()"   type="text" placeholder="Search...">
+
+    </div>
+
+    <ng-container *ngIf="devices$ | async as result  " [ngSwitch]="result.dataState" >
+      <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+        Loading ....
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+        <div class="alert-danger">{{result.errorMessage}}</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="DataStateEnum.LOADED" style="display: contents">
+        <table class="table" >
+          <thead>
+          <tr >
+            <th>Id Device</th><th>Username</th><th>Password</th><th>Module</th><th>Type of equipment</th><th>Number SIM</th><th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let device of result.data">
+            <td>{{device.id}}</td>
+            <td>{{device.users.username  }}</td>
+            <td>{{device.users.password  }}</td>
+            <td>{{device.module}}</td>
+            <td>{{device.typeOfEquipment}}</td>
+            <td>{{device.users.numberOfPhone}}</td>
+            <td>
+              <button mat-icon-button (click)="onActive(device)" [color]="device.active? 'primary':'accent'" >
+                <mat-icon *ngIf="device.active " class="green-icon"></mat-icon>
+                <mat-icon *ngIf="!device.active" class="red-icon"></mat-icon>
+              </button>
+
+
+              <button mat-icon-button color="warn" (click)="onDelete(device)" >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+
+              <button mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(device)" >
+                <mat-icon>edit</mat-icon>
+              </button>
+
+
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+    </ng-container>
+
+
+  </div>
+</div>
+
+<!--  edit modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="editDeviceFormGroup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel1">Update Account</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editDeviceFormGroup">
+          {{editDeviceFormGroup.value|json}}
+          <div class="form-group row">
+            <label> Number IMEI</label>
+            <input type="text" class="form-control"  formControlName="id">
+          </div>
+          <div class="form-group row">
+            <label>Username</label>
+            <input type="tel" class="form-control"   formControlName="username">
+          </div>
+          <div class="form-group row">
+            <label>Number SIM</label>
+            <input type="tel" id="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                   required  formControlName="numberOfPhone">
+          </div>
+          <div class="form-group row">
+            <label>Type of Equipment </label>
+            <input type="text" class="form-control"  formControlName="typeOfEquipment">
+          </div>
+          <div class="form-group row">
+            <label>Module of Vehicle</label>
+            <input type="txt" class="form-control" formControlName="module">
+          </div>
+          <div class="form-group row">
+            <label>Count Kilometers</label>
+            <input type="number" class="form-control" formControlName="speed">
+          </div>
+          <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" formControlName="active" class="form-check">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!--  new device modal-->
+<div class="modal fade" id="exampleModalNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="deviceFormGroup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">New Device</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="deviceFormGroup">
+          {{deviceFormGroup.value|json}}
+          <div class="form-group row">
+            <label>Number IMEI</label>
+            <input type="text" class="form-control"  formControlName="id">
+          </div>
+          <div class="form-group row">
+            <label>Id user</label>
+            <input type="txt" class="form-control"  formControlName="users">
+          </div>
+          <div class="form-group row">
+            <label>Number SIM</label>
+            <input type="txt" class="form-control"  formControlName="username">
+          </div>
+          <div class="form-group row">
+            <label>Number SIM</label>
+            <input type="tel" class="form-control"  formControlName="numberOfPhone">
+          </div>
+          <div class="form-group row">
+            <label>Type of equipment</label>
+            <input type="txt" class="form-control" formControlName="typeOfEquipment">
+          </div>
+          <div class="form-group row">
+            <label>Vehicle module</label>
+            <input type="txt"  class="form-control" formControlName="module">
+          </div>
+          <div class="form-group row">
+            <label>mileage counter </label>
+            <input type="number" class="form-control" formControlName="speed">
+          </div>
+          <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" formControlName="active" class="form-check">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"  data-bs-dismiss="modal" (click)="onSaveDevice()" >Save</button>
+      </div>
+    </div>
+  </div>
+</div>

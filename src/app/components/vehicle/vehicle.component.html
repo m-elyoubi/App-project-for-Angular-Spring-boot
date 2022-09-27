@@ -1,1 +1,80 @@
-<p>vehicle works!</p>
+<app-nav-bar ></app-nav-bar>
+<br>
+<div class="container">
+<div class="card" >
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <h4>Vehicles management</h4>
+  </nav>
+      <div class="border">
+          <div class="row">
+            <div class="form-group" class="col-sm">
+              <label>Id account</label>
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="IdAccSelected"  (click)="getAllIdAccount() " >
+                <option  [ngValue]="null" disabled >Open this select menu</option>
+                <option *ngFor="let accounts of allIdAccount" [ngValue]="accounts"  >{{accounts.id}}</option>
+              </select>
+            </div>
+
+            <div class="form-group" class="col-sm" >
+              <label>Id user</label>
+              <select  class="form-select" aria-label="Default select example"   [(ngModel)]="IdUserSelected"  (click)="getAllIdUserJoinAcc()" >
+                <option  [ngValue]="null" disabled >Open this select menu</option>
+                <option *ngFor="let user of allIdUserJoinAcc" [ngValue]="user"  >{{user.id}}</option>
+              </select>
+            </div>
+            <div  class="col-sm"  >
+                <input class="form-control" name="module"  [(ngModel)]="module" (ngModelChange)="onSearchByModule()"   type="text" placeholder="Search ...">
+            </div>
+
+          </div>
+       </div>
+        <ng-container *ngIf="devices$ | async as result" [ngSwitch]="result.dataState" >
+          <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+            Loading ....
+          </ng-container>
+
+          <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+            <div class="alert-danger">{{result.errorMessage}}</div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="DataStateEnum.LOADED" style="display: contents">
+            <table class="table table-hover table-striped table-bordered table-sm" >
+              <thead>
+              <tr >
+                <th>Id account</th><th>Identifier</th><th>Creation Date</th> <th>Module of Vehicles</th><th>Type of Equipment</th> <th>Phone number</th><th>Last Connexion</th><th>Position</th><th>Speed</th><th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let device of result.data"  >
+                <td>{{device.accounts.id}}</td>
+                <td>{{device.id}}</td>
+                <td>{{device.accounts.creationDate}}</td>
+                <td>{{device.module}}</td>
+                <td>{{device.typeOfEquipment}}</td>
+                <td>{{device.accounts.numberOfPhone}}</td>
+                <td class="p-3 mb-2 bg-danger text-dark">{{device.accounts.lastConnection}}</td>
+                <td>{{device.position}}</td>
+                <td>{{device.speed}}</td>
+                <td>{{device.active}}</td>
+
+                <td>
+                  <button mat-icon-button (click)="onActive(device)" [color]="device.active?'primary':'accent'" >
+                    <mat-icon *ngIf="device.active " class="green-icon">check_circle</mat-icon>
+                    <mat-icon *ngIf="!device.active" class="red-icon">check_circle</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </ng-container>
+
+        </ng-container>
+
+</div>
+
+
+</div>
+
+
+
+

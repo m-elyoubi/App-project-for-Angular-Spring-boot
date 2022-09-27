@@ -1,0 +1,92 @@
+<tr *ngIf="user">
+  <td>{{user.accounts.id}}</td>
+  <td>{{user.id}}</td>
+  <td>{{user.username}}</td>
+  <td>{{user.contactName}}</td>
+  <td>{{user.email}}</td>
+  <td>{{user.numberOfPhone}}</td>
+  <td>{{user.password}}</td>
+
+  <td>
+    <button mat-icon-button (click)="onActive(user)" [color]="user.active?'primary':'warn'" >
+      <mat-icon  *ngIf="user.active "class="green-icon" >check_circle</mat-icon>
+      <mat-icon *ngIf="!user.active" class="red-icon">check_circle</mat-icon>
+    </button>
+  </td>
+  <td>
+    <button  mat-icon-button color="warn" (click)="onDelete(user)" >
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#editUserModal1"  (click)="onEdit(user)" >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="onAdd(user)" >
+      <mat-icon>add</mat-icon>
+    </button>
+  </td>
+
+</tr>
+<!-- Modal edit user-->
+
+
+<div class="modal fade" id="editUserModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="editUserFormGroup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="updateUserModalLabel">Update User</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editUserFormGroup">
+          {{editUserFormGroup.value|json}}
+          <div class="form-group row">
+            <label>Id</label>
+            <input type="number" class="form-control"  formControlName="id">
+          </div>
+          <div class="form-group row">
+            <label>Id account</label>
+            <select type="txt" class="form-select" aria-label="Default select example" formControlName="accounts" *ngIf="allIdAccount">
+              <option  [ngValue]="null" disabled >Open this select menu</option>
+              <option *ngFor="let accounts of allIdAccount" [ngValue]="accounts"  >{{accounts.id}}</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+            <label>Username</label>
+            <input type="text" class="form-control"  formControlName="username">
+          </div>
+          <div class="form-group row">
+            <label>Contact name</label>
+            <input type="text" class="form-control"  formControlName="contactName">
+          </div>
+          <div class="form-group row">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email">
+          </div>
+          <div class="form-group row">
+            <label>Phone number</label>
+            <input type="tel" class="form-control"
+                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                   required  formControlName="numberOfPhone">
+          </div>
+          <div class="form-group row">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
+          </div>
+          <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" formControlName="active" class="form-check">
+
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary"  data-bs-dismiss="modal" (click)="onUpdateEdit()" >save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

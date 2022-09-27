@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 
 import {environment} from "../../environments/environment";
 import {Users} from "../model/Users";
+import {Accounts} from "../model/Accounts";
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,4 +46,17 @@ export class UserService {
     user.active=!user.active;
     return this.http.put<Users>(host+"/users/"+user.id,user);
   }
+
+  getUserJoinAcc(account:Accounts):Observable<Users[]>
+  {
+    let host=environment.host;
+    return this.http.get<Users[]>(host+"/getUserByAccount?id_account="+account.id);
+  }
+  getUserById(id_user:number):Observable<Users>
+  {
+    let host=environment.host;
+    return this.http.get<Users>(host+"/users/"+id_user);
+
+  }
+
 }

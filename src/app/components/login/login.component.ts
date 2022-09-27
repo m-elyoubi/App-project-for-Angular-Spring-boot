@@ -12,7 +12,7 @@ import { Users } from 'src/app/model/Users';
 })
 export class LoginComponent implements OnInit {
   user: Users = new Users();
-
+  admin?:Users;
   msg="";
 
   constructor(private authenticationService:AuthenticationService,private router:Router) {
@@ -25,8 +25,10 @@ handleLogin() {
 console.log(this.user);
 this.authenticationService.login(this.user).subscribe(
   data=> {
+    this.admin=data;
     this.authenticationService.authenticationUser(this.user).subscribe(
       data => {
+
         console.log("response received");
         this.router.navigateByUrl("/dash");
       });

@@ -1,62 +1,8 @@
-
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <ul class="navbar navbar-nav">
-    <li>
-      <button class="btn btn-outline-info ml-2" (click)="ongetAllUsers()">All</button>
-    </li>
-    <li>
-      <button class="btn btn-outline-info ml-2" (click)="onNewUsers()">New user</button>
-    </li>
-  </ul>
-  <ul class="navbar navbar-nav ml-auto">
-    <form class="form-inline" #f="ngForm" (ngSubmit)="onSearch(f.value)" (ngSubmit)="onSearchByNumber(f.value)" (ngSubmit)="onSearchByEmail(f.value)">
-      <input ngModel name="keyword" class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-success" >Search</button>
-    </form>
-  </ul>
-
-</nav>
-
-<div class="container" *ngIf="users">
-  <div class="container">
-    <p>User Management </p>
+<app-nav-bar ></app-nav-bar>
+<br>
+<div class="container">
+  <div class="card" >
+<app-user-nav-bar (userEventEmitter)="onActionEvent($event)" [userFormGroup]="userFormGroup" [allIdAccount]="allIdAccount"></app-user-nav-bar>
+<app-user-list [users$]="users$" [editUserFormGroup]="editUserFormGroup" (userEventEmitter)="onActionEvent($event)" [allIdAccount]="allIdAccount"></app-user-list>
   </div>
-  <ng-container>
-  <table class="table">
-    <tr>
-      <th>Id account</th><th>Id user</th><th>Name user</th><th>Contact name</th><th>Email</th> <th>Phone number</th><th>Password</th><th>Active</th><th>Action</th>
-    </tr>
-    <tr *ngFor="let u of users">
-      <td>{{u.accounts.id}}</td>
-      <td>{{u.id}}</td>
-      <td>{{u.username}}</td>
-      <td>{{u.contactName}}</td>
-      <td>{{u.email}}</td>
-      <td>{{u.numberOfPhone}}</td>
-      <td>{{u.password}}</td>
-
-      <td>
-        <button (click)="onActive(u)" [ngClass]="u.active?'btn-success':'btn-danger'" class="btn btn-sm">
-          <span *ngIf="u.active " class="fa fa-toggle-off" aria-hidden="true"></span>
-          <span *ngIf="!u.active" class="fa fa-toggle-on" aria-hidden="true"></span>
-        </button>
-      </td>
-      <td>
-        <button  class="btn btn-danger" (click)="onDelete(u)" >
-          <span class="fa fa-trash"></span>
-        </button>
-        <button class="btn btn-outline-info m-lg-2" (click)="onAdd(u)" >
-          <span class="fa fa-plus"></span>
-        </button>
-        <button class="btn btn-warning " (click)="onEdit(u)" >
-          <span class="fa fa-edit"></span>
-        </button>
-
-      </td>
-
-    </tr>
-
-  </table>
-  </ng-container>
 </div>

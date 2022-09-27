@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {EditUserService} from "../../services/edit-user.service";
 import {NewUserService} from "../../services/new-user.service";
+import {AccountService} from "../../services/account.service";
+import {Accounts} from "../../model/Accounts";
 
 @Component({
   selector: 'app-edit-user',
@@ -12,8 +14,8 @@ import {NewUserService} from "../../services/new-user.service";
 export class EditUserComponent implements OnInit {
   editUserFormGroup?:FormGroup;
   userId!:number;
-  allIdAccount: any;
-  constructor(private fb:FormBuilder,private newUserService:NewUserService,private activatedRoute:ActivatedRoute,private editUserService:EditUserService) {
+  allIdAccount?: Accounts[];
+  constructor(private accountService:AccountService, private router:Router,private fb:FormBuilder,private newUserService:NewUserService,private activatedRoute:ActivatedRoute,private editUserService:EditUserService) {
 
       this.userId = this.activatedRoute.snapshot.params['id'];
   }
@@ -40,11 +42,12 @@ export class EditUserComponent implements OnInit {
   onUpdateEdit() {
      this.editUserService.updateUser(this.editUserFormGroup?.value).subscribe(data=>{
        alert("Success user Updated  ")
+       this.router.navigateByUrl("/dash/users");
      })
   }
 
   getAllIdAccount() {
-    this.newUserService.getAllId().subscribe(data=>{
+    this.accountService.getAllAccounts().subscribe(data=>{
       this.allIdAccount=data;
     })
   }

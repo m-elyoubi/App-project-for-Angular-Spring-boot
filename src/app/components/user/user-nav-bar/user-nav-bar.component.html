@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <h4>User management</h4>
+  <ul class="nav navbar-nav ml-auto" >
+    <li>
+      <button class="btn btn-lg btn-outline-primary ml-2" data-bs-toggle="modal" data-bs-target="#newUserModal" >New user</button>
+    </li>
+  </ul>
+</nav>
+
+  <div class="border">
+
+    <input  name="username" class=".col-md-4 .ms-auto"  [(ngModel)]="username"  type="text"  (ngModelChange)="onSearch()" placeholder="Search...">
+
+  </div>
+
+<!-- Modal new user -->
+
+<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="userFormGroup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel1">Update Account</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="userFormGroup">
+          {{userFormGroup.value|json}}
+          <div class="form-group row">
+            <label>Id account</label>
+            <select  class="form-select" aria-label="Default select example" formControlName="accounts" (click)="getAllIdAccount()">
+              <option  [ngValue]="null" disabled >Open this select menu</option>
+              <option *ngFor="let accounts of allIdAccount" [ngValue]="accounts">{{accounts.id}}</option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <label>Username</label>
+            <input type="text" class="form-control"  formControlName="username">
+          </div>
+          <div class="form-group row">
+            <label>Contact name</label>
+            <input type="text" class="form-control"  formControlName="contactName">
+          </div>
+          <div class="form-group row">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email">
+          </div>
+          <div class="form-group row">
+            <label>Phone number</label>
+            <input type="tel" id="phone" class="form-control"
+                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                   required  formControlName="numberOfPhone">
+          </div>
+          <div class="form-group row">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
+          </div>
+          <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" formControlName="active" class="form-check">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onSaveUser()" >Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

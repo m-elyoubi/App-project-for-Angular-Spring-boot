@@ -1,1 +1,18 @@
-<p>account works!</p>
+<app-nav-bar ></app-nav-bar>
+<br>
+
+<div class="container">
+  <div class="card" >
+  <app-account-nav-bar (accountEventEmitter)="onActionEvent($event)" [accountFormGroup]="accountFormGroup"></app-account-nav-bar>
+
+ <app-account-list [accounts$]="accounts$" (accountEventEmitter)="onActionEvent($event)" [editAccountFormGroup]="editAccountFormGroup" ></app-account-list>
+
+  </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+<div class="border">
+  <input class=".col-md-4 .ms-auto" name="contactName"  [(ngModel)]="contactName" (ngModelChange)="onSearchByName()"   type="text" placeholder="Search...">
+
+</div>
+
+<ng-container *ngIf="accounts$ | async as result" [ngSwitch]="result.dataState" >
+  <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+    Loading ....
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+    <div class="alert-danger">{{result.errorMessage}}</div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="DataStateEnum.LOADED" style="display: contents">
+    <table class="table table-hover table-striped table-bordered table-sm" >
+      <thead>
+      <tr >
+        <th (click)="sort('id')">Id account&nbsp;<i class="fa fa-sort"></i></th><th>Name account</th><th>Contact name</th> <th>Phone number</th><th>Creation date</th><th>Last Connexion</th><th>Password</th><th>active</th><th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let account of result.data | orderBy:key:reverse | paginate:{itemsPerPage:5,currentPage:p} ; "  >
+        <td><span>{{account.id}}</span></td>
+        <td><span>{{account.name}}</span></td>
+        <td><span>{{account.contactName}}</span></td>
+        <td>{{account.numberOfPhone}}</td>
+        <td>{{account.creationDate}}</td>
+        <td class="p-3 mb-2 bg-danger text-dark">{{account.lastConnection}}</td>
+        <td>{{account.password}}</td>
+        <td>{{account.active}}
+          <button mat-icon-button (click)="onActive(account)" [color] ="account.active?'primary':'accent'">
+            <mat-icon *ngIf="account.active " class="green-icon">check_circle</mat-icon>
+            <mat-icon *ngIf="!account.active" class="red-icon" >check_circle</mat-icon>
+          </button>
+        </td>
+        <td >
+
+
+          <button mat-icon-button  color="warn" (click)="onDelete(account)">
+            <mat-icon >delete</mat-icon>
+          </button>
+          <!--  <button class="btn btn-info btn-sm"  (click)="onAdd(account)" >
+             <span class="fa fa-plus " ></span>
+           </button>
+      !--
+           <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="onEdit(account)" >
+             <span class="fa fa-edit " ></span>
+           </button>
+           -->
+
+          <button  mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="onEdit(account)" >
+            <mat-icon >edit</mat-icon>
+          </button>
+
+          <button mat-icon-button  color="accent" (click)="onAdd(account)" >
+            <mat-icon>add</mat-icon>
+          </button>
+        </td>
+
+      </tr>
+
+
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+
+  </ng-container>
+
+</ng-container>
+
+<!-- Modal edit account-->
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="editAccountFormGroup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel1">Update Account</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editAccountFormGroup">
+          {{editAccountFormGroup.value|json}}
+          <div class="form-group row">
+            <label>Id</label>
+            <input type="text" class="form-control"  formControlName="id">
+          </div>
+
+          <div class="form-group row">
+            <label>Name</label>
+            <input type="text" class="form-control"  formControlName="name">
+          </div>
+          <div class="form-group row">
+            <label>Contact name</label>
+            <input type="text" class="form-control"  formControlName="contactName">
+          </div>
+          <div class="form-group row">
+            <label>Creation date</label>
+            <input type="date" class="form-control" formControlName="creationDate">
+          </div>
+          <div class="form-group row">
+            <label>Last connection</label>
+            <input type="date" class="form-control" formControlName="lastConnection">
+          </div>
+          <div class="form-group row">
+            <label>Phone number</label>
+            <input type="tel" id="phone1" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                   required  formControlName="numberOfPhone">
+          </div>
+          <div class="form-group row">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
+          </div>
+          <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" formControlName="active" class="form-check">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateEdit()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
