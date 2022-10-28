@@ -14,7 +14,7 @@
     </nav>
 
     <div class="border">
-      <input class=".col-md-4 .ms-auto" name="module"  [(ngModel)]="module" (ngModelChange)="onSearchByModule()"   type="text" placeholder="Search">
+      <input class=".col-md-4 .ms-auto" name="module"  [(ngModel)]="module" (ngModelChange)="onSearchByModuleDevice()"   type="text" placeholder="Search">
 
     </div>
 
@@ -43,18 +43,18 @@
               <td>{{device.typeOfEquipment}}</td>
               <td>{{device.accounts.numberOfPhone}}</td>
               <td>
-                <button mat-icon-button (click)="onActive(device)" [color]="device.active?'primary':'accent'" >
+                <button mat-icon-button (click)="onActiveDevice(device)" [color]="device.active?'primary':'accent'" >
                   <mat-icon *ngIf="device.active " class="green-icon">check_circle</mat-icon>
                   <mat-icon *ngIf="!device.active" class="red-icon">check_circle</mat-icon>
                 </button>
               </td>
               <td>
-                <button mat-icon-button color="warn" (click)="onDelete(device)" >
+                <button mat-icon-button color="warn" (click)="onDeleteDevice(device)" >
                   <mat-icon>delete</mat-icon>
                 </button>
 
 
-                <button mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#editDeviceModal" (click)="onEdit(device)" >
+                <button mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#editDeviceModal" (click)="onEditDevice(device)" >
                   <mat-icon>edit</mat-icon>
                 </button>
 
@@ -112,7 +112,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateEdit()">Save</button>
+        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateDevice()">Save</button>
       </div>
     </div>
   </div>
