@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Users} from "../../../../model/Users";
 import {userActionEvent, UserActionTypes} from "../../../../State/state.user";
 import {FormGroup} from "@angular/forms";
+import {EventDriverService} from "../../../../State/event.driver.service";
+import {AuthenticationService} from "../../../../services/authentication.service";
 
 @Component({
   selector: 'app-user-items',
@@ -15,7 +17,10 @@ export class UserItemsComponent implements OnInit {
   @Input() editUserFormGroup?:FormGroup;
 
 
-  constructor() { }
+  constructor(
+    private eventDriverService:EventDriverService,
+    public  authenticationService:AuthenticationService
+  ) { }
 
   ngOnInit(): void {
 
@@ -30,8 +35,9 @@ export class UserItemsComponent implements OnInit {
   }
 
   onEdit(user: Users) {
-    console.log(this.editUserFormGroup)
-    this.userEventEmitter.emit({type:UserActionTypes.EDIT_USER,payload:user});
+   // console.log(this.editUserFormGroup)
+    //this.userEventEmitter.emit({type:UserActionTypes.EDIT_USER,payload:user});
+   this.eventDriverService.publishEvent({type:UserActionTypes.EDIT_USER,payload:user});
   }
 
   onActive(user: any) {

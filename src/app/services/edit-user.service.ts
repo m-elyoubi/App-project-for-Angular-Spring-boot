@@ -9,16 +9,14 @@ import {Users} from "../model/Users";
 })
 export class EditUserService {
 
+  private host=environment.host;
   constructor(private http:HttpClient) { }
 
-  getUserId(id:number):Observable<Users>
-  {
-    let host=environment.host;
-    return this.http.get<Users>(host+"/users/"+id);
+  getUserId(id:number):Observable<Users> {
+    return this.http.get<Users>(this.host+"/users/"+id);
   }
-  updateUser(user:Users):Observable<Users>
-  {
-    let host=environment.host;
-    return this.http.put<Users>(host+"/users/"+user.id,user);
+
+  updateUser(user:Users):Observable<Users> {
+    return this.http.put<Users>(this.host+"/users/"+user.id,user);
   }
 }

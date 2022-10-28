@@ -16,11 +16,11 @@
         </tr>
         </thead>
         <tbody>
-       <app-user-items [user]="u" [editUserFormGroup]="editUserFormGroup" [allIdAccount]="allIdAccount" (userEventEmitter)="onActionEvent($event)"  *ngFor="let u of result.data" style="display: contents">
-
+       <app-user-items [user]="u" [editUserFormGroup]="editUserFormGroup" [allIdAccount]="allIdAccount" (userEventEmitter)="onActionEvent($event)"  *ngFor="let u of result.data " style="display: contents">
        </app-user-items>
         <tbody>
       </table>
+      <pagination-controls (pageChange)="p=$event"></pagination-controls>
     </ng-container>
 
   </ng-container>

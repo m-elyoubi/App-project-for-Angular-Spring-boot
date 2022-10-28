@@ -7,4 +7,25 @@
 .mat-drawer-container{
   padding: 20px;
 }
+table {
+  width: 100%;
+}
+.mat-row {
+  font-weight: bold;
+}
+.mat-row:nth-child(even){
+  background-color: lightskyblue;
+}
 
+.mat-row:nth-child(odd){
+  background-color:#7200ca;
+}
+.mat-table{
+  background-color: #82b1ff;
+
+}
+.mat-header-cell{
+  font-size: 16px;
+  color: black;
+  align-content: center;
+}

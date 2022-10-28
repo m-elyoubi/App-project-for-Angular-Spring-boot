@@ -11,6 +11,7 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./account-list.component.scss']
 })
 export class AccountListComponent implements OnInit {
+
   @Input() accounts$?: Observable<AppDataState<Accounts[]>>;
   @Output() accountEventEmitter:EventEmitter<accountActionEvent>=new EventEmitter();
   readonly DataStateEnum = DataStateEnum;
@@ -19,40 +20,37 @@ export class AccountListComponent implements OnInit {
   reverse: boolean = false;
   @Input() editAccountFormGroup!:FormGroup;
   contactName: any;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onActive(account: any) {
+  onActiveAccount(account: any) {
     this.accountEventEmitter.emit({type:AccountActionTypes.ACTIVE_ACCOUNT,payload:account})
   }
 
-  onDelete(account: any) {
+  onDeleteAccount(account: any) {
     this.accountEventEmitter.emit({type:AccountActionTypes.DELETE_ACCOUNT,payload:account})
-
   }
 
-  onAdd(account: any) {
+  onAddAccount(account: any) {
     this.accountEventEmitter.emit({type:AccountActionTypes.ADD_DEVICE_ACCOUNT,payload:account})
-
   }
 
-  onEdit(account: any) {
+  onEditAccount(account: any) {
     this.accountEventEmitter.emit({type:AccountActionTypes.EDIT_ACCOUNT,payload:account})
   }
 
-  onUpdateEdit() {
+  onUpdateAccount() {
    this.accountEventEmitter.emit({type:AccountActionTypes.UPDATE_EDIT_ACCOUNT,payload:this.editAccountFormGroup})
   }
 
   sort(key: string) {
     this.accountEventEmitter.emit({type:AccountActionTypes.SORT_ACCOUNT,payload:key})
-
   }
 
-  onSearchByName() {
+  onSearchByNameAccount() {
     this.accountEventEmitter.emit({type:AccountActionTypes.SEARCH_ACCOUNT,payload:this.contactName})
-
   }
 }

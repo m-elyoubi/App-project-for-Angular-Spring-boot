@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -13,18 +12,11 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AccountComponent } from './components/account/account.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { UserComponent } from './components/user/user.component';
-import { NewUserComponent } from './components/new-user/new-user.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
 import {NewUserService} from "./services/new-user.service";
 import { UserNavBarComponent } from './components/user/user-nav-bar/user-nav-bar.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserItemsComponent } from './components/user/user-list/user-items/user-items.component';
-import { NewAccountComponent } from './components/new-account/new-account.component';
 import { AddDeviceComponent } from './components/add-device/add-device.component';
-import { NewDeviceComponent } from './components/new-device/new-device.component';
-import { EditAccountComponent } from './components/edit-account/edit-account.component';
-import { EditDeviceComponent } from './components/edit-device/edit-device.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material/material.module";
 import {Ng2SearchPipeModule} from "ng2-search-filter";
@@ -41,7 +33,14 @@ import {MatDividerModule} from "@angular/material/divider";
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-
+import {FlexModule} from "@angular/flex-layout";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatButtonModule} from "@angular/material/button";
+import { MatMenuModule} from '@angular/material/menu';
+import { PieComponent } from './components/pie/pie.component';
+import {HighchartsChartModule} from "highcharts-angular";
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { BarComponent } from './components/bar/bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,21 +51,17 @@ import {MatListModule} from "@angular/material/list";
     AccountComponent,
     VehicleComponent,
     UserComponent,
-    NewUserComponent,
-    EditUserComponent,
     UserNavBarComponent,
     UserListComponent,
     UserItemsComponent,
-    NewAccountComponent,
     AddDeviceComponent,
-    NewDeviceComponent,
-    EditAccountComponent,
-    EditDeviceComponent,
     AccountNavBarComponent,
     AccountListComponent,
     AddDeviceUserComponent,
     AdminComponent,
     SideBarComponent,
+    PieComponent,
+    BarComponent,
 
   ],
   imports: [
@@ -82,13 +77,11 @@ import {MatListModule} from "@angular/material/list";
     Ng2OrderModule,
     NgxPaginationModule,
     NgbModule,
-    MatIconModule,
-    MatTableModule,
-    MatDividerModule,
-    MatSidenavModule,
-    MatListModule
+    FlexModule,
+    MatPaginatorModule,
+    NgApexchartsModule,
   ],
-  providers: [UserComponent,NewUserService,NavBarComponent],
+  providers: [UserComponent,NewUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

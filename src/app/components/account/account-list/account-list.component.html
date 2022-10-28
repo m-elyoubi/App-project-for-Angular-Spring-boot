@@ -1,11 +1,11 @@
 <div class="border">
-  <input class=".col-md-4 .ms-auto" name="contactName"  [(ngModel)]="contactName" (ngModelChange)="onSearchByName()"   type="text" placeholder="Search...">
+  <input class=".col-md-4 .ms-auto" name="contactName"  [(ngModel)]="contactName" (ngModelChange)="onSearchByNameAccount()"   type="text" placeholder="Search...">
 
 </div>
 
 <ng-container *ngIf="accounts$ | async as result" [ngSwitch]="result.dataState" >
   <ng-container *ngSwitchCase="DataStateEnum.LOADING">
-    Loading ....
+    Loading ...
   </ng-container>
 
   <ng-container *ngSwitchCase="DataStateEnum.ERROR">
@@ -29,7 +29,7 @@
         <td class="p-3 mb-2 bg-danger text-dark">{{account.lastConnection}}</td>
         <td>{{account.password}}</td>
         <td>{{account.active}}
-          <button mat-icon-button (click)="onActive(account)" [color] ="account.active?'primary':'accent'">
+          <button mat-icon-button (click)="onActiveAccount(account)" [color] ="account.active?'primary':'accent'">
             <mat-icon *ngIf="account.active " class="green-icon">check_circle</mat-icon>
             <mat-icon *ngIf="!account.active" class="red-icon" >check_circle</mat-icon>
           </button>
@@ -37,23 +37,14 @@
         <td >
 
 
-          <button mat-icon-button  color="warn" (click)="onDelete(account)">
+          <button mat-icon-button  color="warn" (click)="onDeleteAccount(account)">
             <mat-icon >delete</mat-icon>
           </button>
-          <!--  <button class="btn btn-info btn-sm"  (click)="onAdd(account)" >
-             <span class="fa fa-plus " ></span>
-           </button>
-      !--
-           <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="onEdit(account)" >
-             <span class="fa fa-edit " ></span>
-           </button>
-           -->
-
-          <button  mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="onEdit(account)" >
+          <button  mat-icon-button color="primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="onEditAccount(account)" >
             <mat-icon >edit</mat-icon>
           </button>
 
-          <button mat-icon-button  color="accent" (click)="onAdd(account)" >
+          <button mat-icon-button  color="accent" (click)="onAddAccount(account)" >
             <mat-icon>add</mat-icon>
           </button>
         </td>
@@ -70,7 +61,6 @@
 </ng-container>
 
 <!-- Modal edit account-->
-
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="editAccountFormGroup">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -80,7 +70,7 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="editAccountFormGroup">
-          {{editAccountFormGroup.value|json}}
+         <!-- {{editAccountFormGroup.value|json}} -->
           <div class="form-group row">
             <label>Id</label>
             <input type="text" class="form-control"  formControlName="id">
@@ -119,7 +109,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateEdit()">Save</button>
+        <button class="btn btn-primary"  data-bs-dismiss="modal"  (click)="onUpdateAccount()">Save</button>
       </div>
 
     </div>

@@ -1,24 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {catchError, map, Observable, of, startWith} from "rxjs";
-import {
-  AppDataState,
-  DataStateEnum,
-} from "../../State/state.user";
+import {AppDataState, DataStateEnum,} from "../../State/state.user";
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {Accounts} from "../../model/Accounts";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EditAccountService} from "../../services/edit-account.service";
 import {accountActionEvent, AccountActionTypes} from "../../State/state.account";
+
+
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
 styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
- accounts$?: Observable<AppDataState<Accounts[]>>;
-  readonly DataStateEnum = DataStateEnum
 
+  accounts$?: Observable<AppDataState<Accounts[]>>;
+  readonly DataStateEnum = DataStateEnum
   p: number = 1;
   key: string = 'id';
   reverse: boolean = false;
@@ -31,10 +30,7 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private editAccountService: EditAccountService
-  ) {
-
-
-  }
+  ){}
 
   ngOnInit(): void {
     if (this.idAccount != null) {
@@ -57,6 +53,8 @@ export class AccountComponent implements OnInit {
       name: ["", Validators.required],
       contactName: ["", Validators.required],
       numberOfPhone: ["", Validators.required],
+      creationDate: [, Validators.required],
+      lastConnection: [, Validators.required],
       password: ["", Validators.required],
       active: [true, Validators.required],
 
@@ -74,10 +72,7 @@ export class AccountComponent implements OnInit {
 
   }
 
-
-
-
-  onDelete(account: Accounts) {
+  onDeleteAccount(account: Accounts) {
     let v = confirm("Are you sure?");
     if (v == true)
       this.accountService.delete(account).subscribe(data => {
@@ -85,28 +80,23 @@ export class AccountComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onAdd(account: Accounts) {
+  onAddAccount(account: Accounts) {
 
     this.router.navigateByUrl("/dash/addDevice/" + account.id + "/" + account.name);
   }
 
-  onEdit(account: Accounts) {
+  onEditAccount(account: Accounts) {
     this.idAccount = account.id;
     this.ngOnInit();
-
-
   }
 
-
-  onActive(account: Accounts) {
+  onActiveAccount(account: Accounts) {
     this.accountService.active(account).subscribe(data => {
       account.active = data.active;
     })
   }
 
-
-  onSearchByName(contactName:any) {
-
+  onSearchByNameAccount(contactName:any) {
     if (contactName == "") {
       this.ngOnInit();
     }
@@ -124,12 +114,10 @@ export class AccountComponent implements OnInit {
 
   }
 
-
   sort(key: string) {
     this.key = key;
     this.reverse = !this.reverse;
   }
-
 
   onSaveAccount() {
 
@@ -140,8 +128,7 @@ export class AccountComponent implements OnInit {
     })
   }
 
-  onUpdateEdit(edit:FormGroup) {
-
+  onUpdateAccount(edit:FormGroup) {
     this.editAccountService.UpdateAccount(edit?.value).subscribe(account => {
       alert("Success Account Updated ")
       this.ngOnInit();
@@ -155,24 +142,24 @@ export class AccountComponent implements OnInit {
         break;
       }
       case AccountActionTypes.ACTIVE_ACCOUNT:
-        this.onActive($event.payload);
+        this.onActiveAccount($event.payload);
         break;
 
       case AccountActionTypes.EDIT_ACCOUNT:
-        this.onEdit($event.payload);
+        this.onEditAccount($event.payload);
         break;
       case AccountActionTypes.UPDATE_EDIT_ACCOUNT:
-        this.onUpdateEdit($event.payload);
+        this.onUpdateAccount($event.payload);
         break;
 
       case AccountActionTypes.DELETE_ACCOUNT:
-        this.onDelete($event.payload);
+        this.onDeleteAccount($event.payload);
         break;
       case AccountActionTypes.SEARCH_ACCOUNT:
-        this.onSearchByName($event.payload);
+        this.onSearchByNameAccount($event.payload);
         break;
       case AccountActionTypes.ADD_DEVICE_ACCOUNT:
-        this.onAdd($event.payload);
+        this.onAddAccount($event.payload);
         break;
       case AccountActionTypes.SORT_ACCOUNT:
         this.sort($event.payload);

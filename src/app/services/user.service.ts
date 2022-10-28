@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-
 import {environment} from "../../environments/environment";
 import {Users} from "../model/Users";
 import {Accounts} from "../model/Accounts";
@@ -12,51 +11,40 @@ import {Accounts} from "../model/Accounts";
 })
 export class UserService {
 
+  private host=environment.host;
   constructor(private http:HttpClient) { }
 
-  getUsers():Observable<Users[]>
-  {
-    let host=environment.host;
-    return  this.http.get<Users[]>(host+"/users");
+  getAllUsers():Observable<Users[]> {
+    return  this.http.get<Users[]>(this.host+"/users");
   }
 
-  searchByName(keyword:string):Observable<Users[]>
-  {
-    let host=environment.host;
-    return this.http.get<Users[]>(host+"/searchName?name="+keyword);
+  searchByNameUser(keyword:string):Observable<Users[]> {
+    return this.http.get<Users[]>(this.host+"/searchName?name="+keyword);
   }
-  searchByPhone(keyword:string):Observable<Users[]>
-  {
-    let host=environment.host;
-    return this.http.get<Users[]>(host+"/searchPhone?phone="+keyword);
+
+  searchByPhoneUser(keyword:string):Observable<Users[]> {
+    return this.http.get<Users[]>(this.host+"/searchPhone?phone="+keyword);
   }
-  searchByEmail(keyword:string):Observable<Users[]>
-{
-  let host=environment.host;
-  return this.http.get<Users[]>(host+"/searchEmail?email="+keyword);
+
+  searchByEmailUser(keyword:string):Observable<Users[]> {
+  return this.http.get<Users[]>(this.host+"/searchEmail?email="+keyword);
 }
-  delete(user:Users):Observable<void>
-  {
-    let host=environment.host;
-    return this.http.delete<void>(host+"/users/"+user.id);
+
+  deleteUser(user:Users):Observable<void> {
+    return this.http.delete<void>(this.host+"/users/"+user.id);
   }
-  active(user:Users):Observable<Users>
-  {
-    let host=environment.host;
+
+  activeUser(user:Users):Observable<Users> {
     user.active=!user.active;
-    return this.http.put<Users>(host+"/users/"+user.id,user);
+    return this.http.put<Users>(this.host+"/users/"+user.id,user);
   }
 
-  getUserJoinAcc(account:Accounts):Observable<Users[]>
-  {
-    let host=environment.host;
-    return this.http.get<Users[]>(host+"/getUserByAccount?id_account="+account.id);
+  getUserJoinAcc(account:Accounts):Observable<Users[]> {
+    return this.http.get<Users[]>(this.host+"/getUserByAccount?id_account="+account.id);
   }
-  getUserById(id_user:number):Observable<Users>
-  {
-    let host=environment.host;
-    return this.http.get<Users>(host+"/users/"+id_user);
 
+  getUserById(id_user:number):Observable<Users> {
+    return this.http.get<Users>(this.host+"/users/"+id_user);
   }
 
 }

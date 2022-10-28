@@ -10,7 +10,7 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-
+  p: number = 1;
  @Input() users$:Observable<AppDataState<Users[]>> |null=null;
   @Output() userEventEmitter:EventEmitter<userActionEvent>=new EventEmitter();
   @Input() editUserFormGroup?:FormGroup;

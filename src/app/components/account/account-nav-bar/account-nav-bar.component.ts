@@ -9,13 +9,13 @@ import {AccountActionTypes} from "../../../State/state.account";
   styleUrls: ['./account-nav-bar.component.scss']
 })
 export class AccountNavBarComponent implements OnInit {
-  @Input() accountFormGroup!:FormGroup;
+   @Input() accountFormGroup!:FormGroup;
    @Output() accountEventEmitter :EventEmitter<any>=new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 
   onSaveAccount() {
     this.accountEventEmitter.emit({type:AccountActionTypes.NEW_ACCOUNT});

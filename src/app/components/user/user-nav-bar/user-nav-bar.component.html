@@ -8,13 +8,9 @@
 </nav>
 
   <div class="border">
-
     <input  name="username" class=".col-md-4 .ms-auto"  [(ngModel)]="username"  type="text"  (ngModelChange)="onSearch()" placeholder="Search...">
-
   </div>
-
 <!-- Modal new user -->
-
 <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="userFormGroup">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -25,7 +21,7 @@
       <div class="modal-body">
 
         <form [formGroup]="userFormGroup">
-          {{userFormGroup.value|json}}
+         <!-- {{userFormGroup.value|json}} -->
           <div class="form-group row">
             <label>Id account</label>
             <select  class="form-select" aria-label="Default select example" formControlName="accounts" (click)="getAllIdAccount()">

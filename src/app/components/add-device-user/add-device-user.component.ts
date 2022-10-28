@@ -8,6 +8,7 @@ import {EditDeviceService} from "../../services/edit-device.service";
 import {UserService} from "../../services/user.service";
 import {VehicleService} from "../../services/vehicle.service";
 
+
 @Component({
   selector: 'app-add-device-user',
   templateUrl: './add-device-user.component.html',
@@ -18,11 +19,12 @@ export class AddDeviceUserComponent implements OnInit {
   module: any;
   devices$:Observable<AppDataState<Devices[]>> | null=null;
   readonly DataStateEnum=DataStateEnum;
-
   editDeviceFormGroup?:FormGroup;
   deviceFormGroup?:FormGroup;
   idUser:number;
   nameUser: string;
+
+
   constructor(
     private activatedRoute:ActivatedRoute,
     private router:Router,
@@ -35,12 +37,12 @@ export class AddDeviceUserComponent implements OnInit {
     this.nameUser=this.activatedRoute.snapshot.params['username'];
   }
 
+
   ngOnInit(): void {
 
     if (this.idUser != null) {
       this.userService.getUserById(this.idUser).subscribe(user => {
         this.deviceFormGroup = this.fb.group({
-
           id: [, Validators.required],
           username: [user.username, Validators.required],
           numberOfPhone: [user.numberOfPhone, Validators.required],
@@ -64,10 +66,8 @@ export class AddDeviceUserComponent implements OnInit {
     );
   }
 
-
-  onSearchByModule() {
+  onSearchByModuleDevice() {
     if (this.module!="") {
-
 
       this.devices$ = this.vehicleService.getAllDevices().pipe(
         map(data => {
@@ -83,21 +83,22 @@ export class AddDeviceUserComponent implements OnInit {
 
   }
 
-  onActive(device: any) {
-    this.vehicleService.active(device).subscribe(data=>{
+  onActiveDevice(device: any) {
+    this.vehicleService.activeDevice(device).subscribe(data=>{
       device.active=data.active;
       console.log(device.accounts.active)
     })
   }
 
-  onDelete(device: any) {
+  onDeleteDevice(device: any) {
     let v=confirm("Are you sure ?");
     if (v==true)
-      this.vehicleService.delete(device).subscribe(data=>{
+      this.vehicleService.deleteDevice(device).subscribe(data=>{
       })
+    this.ngOnInit()
   }
 
-  onEdit(device: any) {
+  onEditDevice(device: any) {
     this.editDeviceService.getDeviceById(device.id).subscribe(device => {
       this.editDeviceFormGroup = this.fb.group({
         id: [device.id, Validators.required],
@@ -111,9 +112,10 @@ export class AddDeviceUserComponent implements OnInit {
         active: [device.active, Validators.required],
       })
     });
+    this.ngOnInit()
   }
 
-  onUpdateEdit() {
+  onUpdateDevice() {
     this.editDeviceService.saveUpdate(this.editDeviceFormGroup?.value).subscribe(data=>{
       alert("Success Device Updated  ")
       this.ngOnInit();
@@ -123,7 +125,7 @@ export class AddDeviceUserComponent implements OnInit {
   onSaveDevice() {
     this.vehicleService.saveDevice(this.deviceFormGroup?.value).subscribe(data=>{
       alert("Success Saving Device")
-
+      this.ngOnInit()
     })
   }
 }

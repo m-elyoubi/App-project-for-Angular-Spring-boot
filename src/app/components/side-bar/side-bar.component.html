@@ -1,8 +1,9 @@
 <mat-nav-list>
   <div class="profile-card">
     <div class="header">
-      <h2>Mouhcin El youbi</h2>
-      <h4>mouhcin.elyoubi@uit.ac.ma</h4>
+      <h2>{{authenticationService.AuthenticationFullUser!.username}}</h2>
+      <h4>{{authenticationService.AuthenticationFullUser!.email}}</h4>
+      <h4>{{authenticationService.AuthenticationFullUser!.role}}</h4>
     </div>
     <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="">
   </div>

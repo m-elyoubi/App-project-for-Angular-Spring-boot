@@ -22,6 +22,7 @@ export enum UserActionTypes{
   EDIT_USER="[User] Edit user",
  UPDATE_USER="[User] Update edit  user ",
   DELETE_USER="[User] Delete user",
+  ADMIN_LOGIN="[Admin] Admin authentication",
 
 }
 

@@ -8,15 +8,16 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class EditAccountService {
+  private host=environment.host;
+
 
   constructor(private http:HttpClient) { }
 
   getAccountById(id:string):Observable<Accounts>{
-    let host=environment.host;
-    return this.http.get<Accounts>(host+"/accounts/"+id);
+    return this.http.get<Accounts>(this.host+"/accounts/"+id);
   }
+
   UpdateAccount(account:Accounts):Observable<Accounts>{
-    let host=environment.host;
-    return this.http.put<Accounts>(host+"/accountUpdate/"+account.id,account);
+    return this.http.put<Accounts>(this.host+"/accountUpdate/"+account.id,account);
   }
 }

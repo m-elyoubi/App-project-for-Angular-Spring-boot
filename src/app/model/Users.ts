@@ -11,6 +11,7 @@ export class Users{
   email !: string;
   contactName !: string;
   active !:boolean;
+  role !:string;
   accounts!:Accounts;
   devices   !:Devices[];
 }

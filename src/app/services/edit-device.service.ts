@@ -9,16 +9,16 @@ import {HttpClient} from "@angular/common/http";
 })
 export class EditDeviceService {
 
+  private host=environment.host;
+
   constructor(private http:HttpClient) { }
 
   getDeviceById(id_device:number):Observable<Devices>{
-    let host=environment.host;
-    return this.http.get<Devices>(host+"/devices/"+id_device);
+    return this.http.get<Devices>(this.host+"/devices/"+id_device);
   }
 
   saveUpdate(device:Devices):Observable<Devices>{
-    let host=environment.host;
-    return this.http.put<Devices>(host+"/updateDevice/"+device.id,device);
+    return this.http.put<Devices>(this.host+"/updateDevice/"+device.id,device);
 
   }
 }

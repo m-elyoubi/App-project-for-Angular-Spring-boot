@@ -5,7 +5,7 @@ import {Devices} from "../../model/Devices";
 import {VehicleService} from "../../services/vehicle.service";
 import {AccountService} from "../../services/account.service";
 import {Accounts} from "../../model/Accounts";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {Users} from "../../model/Users";
 import {UserService} from "../../services/user.service";
 
@@ -56,7 +56,7 @@ export class VehicleComponent implements OnInit {
 
 
   onActive(device: Devices) {
-    this.vehicleService.active(device).subscribe(data=>{
+    this.vehicleService.activeDevice(device).subscribe(data=>{
       device.active=data.active;
     })
 
